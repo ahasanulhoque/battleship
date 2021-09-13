@@ -7,8 +7,7 @@ const Gameboard = () => {
         Empty spaces are represented by 0
     */
     for (let i = 0; i < 10; i++) {
-      const newRow = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      board.push(newRow);
+      board.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     }
   })();
 
