@@ -16,14 +16,14 @@ test('2: Ship should not be sunk when first created', () => {
 test('3: Test hitting a ship', () => {
   const testShip = Ship(4);
   testShip.hit(3);
-  expect(testShip.shipHealth).toStrictEqual([1, 1, 1, 0]);
+  expect(testShip.shipHealth).toStrictEqual([1, 1, 1, -1]);
 });
 
 test('4: Hit ship multiple times', () => {
   const testShip = Ship(4);
   testShip.hit(0);
   testShip.hit(2);
-  expect(testShip.shipHealth).toStrictEqual([0, 1, 0, 1]);
+  expect(testShip.shipHealth).toStrictEqual([-1, 1, -1, 1]);
 });
 
 test('5: Hit ship multiple times but it has not been sunk', () => {
@@ -46,5 +46,5 @@ test('7: See sunken ship', () => {
   testShip.hit(0);
   testShip.hit(1);
   testShip.hit(2);
-  expect(testShip).toMatchObject({ length: 3, shipHealth: [0, 0, 0] });
+  expect(testShip).toMatchObject({ length: 3, shipHealth: [-1, -1, -1] });
 });

@@ -2,7 +2,7 @@ const Ship = (length) => {
   /*
      shipHealth will be array with each element representing one space on the ship
      1: space has not been hit
-     0: space has been hit
+     -1: space has been hit
   */
   const shipHealth = [];
 
@@ -19,7 +19,7 @@ const Ship = (length) => {
       If it has not been attacked yet, it it set to 0
     */
     if (shipHealth[target] === 1) {
-      shipHealth[target] = 0;
+      shipHealth[target] = -1;
     }
   };
 
@@ -29,7 +29,7 @@ const Ship = (length) => {
       If they have all been hit, return true
       If not, return false
     */
-    if (shipHealth.every((e) => e === 0)) {
+    if (shipHealth.every((e) => e === -1)) {
       return true;
     }
     return false;
