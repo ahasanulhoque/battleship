@@ -1,7 +1,12 @@
-const Ship = (length) => {
+const Ship = (length, shipCode) => {
+  /*
+    length is length of ship
+    shipCode is string value, shorthand for ship
+  */
+
   /*
      shipHealth will be array with each element representing one space on the ship
-     1: space has not been hit
+     shipCode value: space has not been hit
      -1: space has been hit
   */
   const shipHealth = [];
@@ -9,7 +14,7 @@ const Ship = (length) => {
   const _createShip = (function createShipOfProvidedLength() {
     // When a Ship is created, _createShip runs to initialize the shipHealth array
     for (let i = 0; i < length; i++) {
-      shipHealth.push(1);
+      shipHealth.push(shipCode);
     }
   })();
 
@@ -18,7 +23,7 @@ const Ship = (length) => {
       hit() takes in target space that is being attacked.
       If it has not been attacked yet, it it set to 0
     */
-    if (shipHealth[target] === 1) {
+    if (shipHealth[target] === shipCode) {
       shipHealth[target] = -1;
     }
   };
@@ -35,7 +40,7 @@ const Ship = (length) => {
     return false;
   };
 
-  return { length, shipHealth, hit, isSunk };
+  return { length, shipCode, shipHealth, hit, isSunk };
 };
 
 export { Ship };
