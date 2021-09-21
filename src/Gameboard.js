@@ -31,7 +31,18 @@ const Gameboard = () => {
         */
 
         for (let i = 0; i < ship.length; i++) {
-          board[row + i][column] = ship.shipHealth[i];
+          // Check if next space on board is 0
+          if (board[row + i][column] === 0) {
+            board[row + i][column] = ship.shipHealth[i];
+          } else {
+            // If next space is not 0, remove every space of the ship so far and break
+            i--;
+            while (i >= 0) {
+              board[row + i][column] = 0;
+              i--;
+            }
+            break;
+          }
         }
       } else if (orientation === 'horizontal' && column + ship.length < 10) {
         /* 
@@ -40,7 +51,18 @@ const Gameboard = () => {
         */
 
         for (let i = 0; i < ship.length; i++) {
-          board[row][column + i] = ship.shipHealth[i];
+          // Check if next space on board is 0
+          if (board[row][column + i] === 0) {
+            board[row][column + i] = ship.shipHealth[i];
+          } else {
+            // If next space is not 0, remove every space of the ship so far and break
+            i--;
+            while (i >= 0) {
+              board[row][column + i] = 0;
+              i--;
+            }
+            break;
+          }
         }
       }
     }
