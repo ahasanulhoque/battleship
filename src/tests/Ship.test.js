@@ -4,7 +4,7 @@ test('1: Create battleship', () => {
   const testShip = Ship(5, 'A0');
   expect(testShip).toMatchObject({
     length: 5,
-    shipHealth: ['A0', 'A0', 'A0', 'A0', 'A0'],
+    shipHealth: ['A00', 'A01', 'A02', 'A03', 'A04'],
   });
 });
 
@@ -16,14 +16,14 @@ test('2: Ship should not be sunk when first created', () => {
 test('3: Test hitting a ship', () => {
   const testShip = Ship(4, 'A0');
   testShip.hit(3);
-  expect(testShip.shipHealth).toStrictEqual(['A0', 'A0', 'A0', -1]);
+  expect(testShip.shipHealth).toStrictEqual(['A00', 'A01', 'A02', -1]);
 });
 
 test('4: Hit ship multiple times', () => {
   const testShip = Ship(4, 'A0');
   testShip.hit(0);
   testShip.hit(2);
-  expect(testShip.shipHealth).toStrictEqual([-1, 'A0', -1, 'A0']);
+  expect(testShip.shipHealth).toStrictEqual([-1, 'A01', -1, 'A03']);
 });
 
 test('5: Hit ship multiple times but it has not been sunk', () => {

@@ -1,7 +1,11 @@
 const Ship = (length, shipCode) => {
   /*
     length is length of ship
-    shipCode is string value, shorthand for ship
+    shipCode is string value, shorthand to identify ship
+    Convention for shipCode:
+        First character: Player A or B
+        Second character: Ship number for player (0, 1, 2, 3, or 4 )
+        Third character: Position within ship (0, 1, 2, 3, or 4)
   */
 
   /*
@@ -14,7 +18,7 @@ const Ship = (length, shipCode) => {
   const _createShip = (function createShipOfProvidedLength() {
     // When a Ship is created, _createShip runs to initialize the shipHealth array
     for (let i = 0; i < length; i++) {
-      shipHealth.push(shipCode);
+      shipHealth.push(`${shipCode}${i}`);
     }
   })();
 
@@ -23,7 +27,7 @@ const Ship = (length, shipCode) => {
       hit() takes in target space that is being attacked.
       If it has not been attacked yet, it it set to 0
     */
-    if (shipHealth[target] === shipCode) {
+    if (shipHealth[target] != -1) {
       shipHealth[target] = -1;
     }
   };
