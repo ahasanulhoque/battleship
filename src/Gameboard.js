@@ -103,7 +103,9 @@ const Gameboard = () => {
       // Change value on board to match ship value
       board[row][column] = -1;
     } else if (board[row][column] === 0) {
+      // If shot misses, keep track of it and update board
       missedShots.push([row, column]);
+      board[row][column] = 'miss';
     }
   };
 

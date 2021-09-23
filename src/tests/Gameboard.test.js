@@ -279,7 +279,7 @@ test('14: Multiple ships on board, miss shot', () => {
   });
 });
 
-test('15: Miss shot and see board unchanged', () => {
+test('15: Miss shot and see board changed', () => {
   const testBoard = Gameboard();
   const testShip1 = Ship(5, 'A0');
   const testShip2 = Ship(4, 'A1');
@@ -288,7 +288,7 @@ test('15: Miss shot and see board unchanged', () => {
   testBoard.receiveAttack(0, 6);
   expect(testBoard).toMatchObject({
     board: [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 'miss', 0, 0, 0],
       [0, 0, 0, 'A10', 'A11', 'A12', 'A13', 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 'A00', 0, 0, 0, 0, 0, 0],
@@ -373,7 +373,30 @@ test('18: Hit ship multiple times and see board changed', () => {
   });
 });
 
-test("19: Sink ship using Gameboard's receiveAttack() function", () => {
+test('19: Miss multiple times and see board changed', () => {
+  const testBoard = Gameboard();
+  const testShip1 = Ship(5, 'A0');
+  testBoard.placeShip(testShip1, 3, 3, 'vertical');
+  testBoard.receiveAttack(3, 5);
+  testBoard.receiveAttack(7, 7);
+  testBoard.receiveAttack(0, 2);
+  expect(testBoard).toMatchObject({
+    board: [
+      [0, 0, 'miss', 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A00', 0, 'miss', 0, 0, 0, 0],
+      [0, 0, 0, 'A01', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A02', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A03', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A04', 0, 0, 0, 'miss', 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+  });
+});
+
+test("20: Sink ship using Gameboard's receiveAttack() function", () => {
   const testBoard = Gameboard();
   const testShip1 = Ship(5, 'A0');
   testBoard.placeShip(testShip1, 3, 3, 'vertical');
