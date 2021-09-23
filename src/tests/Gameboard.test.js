@@ -438,3 +438,20 @@ test('22: Sink all ships and test if all ships sunk', () => {
   testBoard.receiveAttack(1, 6);
   expect(testBoard.checkAllSunk()).toBe(true);
 });
+
+test('23: Hit multiple ships but only sink one', () => {
+  const testBoard = Gameboard();
+  const testShip1 = Ship(5, 'A0');
+  const testShip2 = Ship(4, 'A1');
+  testBoard.placeShip(testShip1, 3, 3, 'vertical');
+  testBoard.placeShip(testShip2, 1, 3, 'horizontal');
+  testBoard.receiveAttack(3, 3);
+  testBoard.receiveAttack(4, 3);
+  testBoard.receiveAttack(5, 3);
+  testBoard.receiveAttack(6, 3);
+  testBoard.receiveAttack(7, 3);
+  testBoard.receiveAttack(1, 3);
+  testBoard.receiveAttack(1, 4);
+  testBoard.receiveAttack(1, 5);
+  expect(testBoard.checkAllSunk()).toBe(false);
+});
