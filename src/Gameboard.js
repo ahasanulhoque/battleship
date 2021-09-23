@@ -110,8 +110,22 @@ const Gameboard = () => {
   };
 
   // function to check if all ships are sunk
+  const checkAllSunk = function checkIfAllShipsAreSunk() {
+    if (allShips.every((ship) => ship.isSunk())) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-  return { board, missedShots, allShips, placeShip, receiveAttack };
+  return {
+    board,
+    missedShots,
+    allShips,
+    placeShip,
+    receiveAttack,
+    checkAllSunk,
+  };
 };
 
 export { Gameboard };

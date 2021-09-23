@@ -407,3 +407,34 @@ test("20: Sink ship using Gameboard's receiveAttack() function", () => {
   testBoard.receiveAttack(7, 3);
   expect(testShip1.isSunk()).toBe(true);
 });
+
+test('21: Sink only one ship and test if all ships sunk', () => {
+  const testBoard = Gameboard();
+  const testShip1 = Ship(5, 'A0');
+  const testShip2 = Ship(4, 'A1');
+  testBoard.placeShip(testShip1, 3, 3, 'vertical');
+  testBoard.placeShip(testShip2, 1, 3, 'horizontal');
+  testBoard.receiveAttack(1, 3);
+  testBoard.receiveAttack(1, 4);
+  testBoard.receiveAttack(1, 5);
+  testBoard.receiveAttack(1, 6);
+  expect(testBoard.checkAllSunk()).toBe(false);
+});
+
+test('22: Sink all ships and test if all ships sunk', () => {
+  const testBoard = Gameboard();
+  const testShip1 = Ship(5, 'A0');
+  const testShip2 = Ship(4, 'A1');
+  testBoard.placeShip(testShip1, 3, 3, 'vertical');
+  testBoard.placeShip(testShip2, 1, 3, 'horizontal');
+  testBoard.receiveAttack(3, 3);
+  testBoard.receiveAttack(4, 3);
+  testBoard.receiveAttack(5, 3);
+  testBoard.receiveAttack(6, 3);
+  testBoard.receiveAttack(7, 3);
+  testBoard.receiveAttack(1, 3);
+  testBoard.receiveAttack(1, 4);
+  testBoard.receiveAttack(1, 5);
+  testBoard.receiveAttack(1, 6);
+  expect(testBoard.checkAllSunk()).toBe(true);
+});
