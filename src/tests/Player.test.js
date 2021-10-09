@@ -113,3 +113,77 @@ test('5: Player must choose target again after choosing already missed target', 
     ],
   });
 });
+
+test('6: AI player randomly chooses target', () => {
+  const testBoard = Gameboard();
+  const player1 = Player('AI', testBoard.board);
+  const testShip = Ship(4, 'A0');
+  testBoard.placeShip(testShip, 2, 3, 'vertical');
+  const target = player1.chooseTarget();
+  testBoard.receiveAttack(target[0], target[1]);
+  console.log(testBoard.board);
+  expect(testBoard).not.toMatchObject({
+    board: [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A00', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A01', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A02', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A03', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+  });
+});
+
+test('7: AI player will not choose target that has already been hit', () => {
+  const testBoard = Gameboard();
+  const player1 = Player('AI', testBoard.board);
+  const testShip = Ship(4, 'A0');
+  testBoard.placeShip(testShip, 2, 3, 'vertical');
+  testBoard.receiveAttack(3, 3);
+  const target = player1.chooseTarget();
+  testBoard.receiveAttack(target[0], target[1]);
+  console.log(testBoard.board);
+  expect(testBoard).not.toMatchObject({
+    board: [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A00', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, -1, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A02', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A03', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+  });
+});
+
+test('8: AI player will not choose target that has already been missed', () => {
+  const testBoard = Gameboard();
+  const player1 = Player('AI', testBoard.board);
+  const testShip = Ship(4, 'A0');
+  testBoard.placeShip(testShip, 2, 3, 'vertical');
+  testBoard.receiveAttack(8, 1);
+  const target = player1.chooseTarget();
+  testBoard.receiveAttack(target[0], target[1]);
+  console.log(testBoard.board);
+  expect(testBoard).not.toMatchObject({
+    board: [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A00', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A01', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A02', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 'A03', 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 'miss', 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+  });
+});
