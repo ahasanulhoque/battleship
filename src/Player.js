@@ -14,7 +14,8 @@ const Player = (playerType, enemyBoard) => {
 
     if (enemyBoard[row][column] === 'miss' || enemyBoard[row][column] === -1) {
       return false;
-    } else return [row, column];
+    }
+    return [row, column];
   };
 
   return { playerType, enemyBoard, chooseTarget };
