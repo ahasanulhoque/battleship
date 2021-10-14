@@ -2,3 +2,21 @@
   size: 24px;
   color: blue;
 }
+
+#play-area {
+  display: flex;
+  justify-content: space-around;
+  height: 80vh;
+}
+
+.row {
+  display: flex;
+  height: 3rem;
+  width: 30rem;
+}
+
+.space {
+  border: solid thin;
+  background-color: lightblue;
+  width: 10%;
+}
