@@ -20,3 +20,9 @@
   background-color: lightblue;
   width: 10%;
 }
+
+.ship-space {
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+}
