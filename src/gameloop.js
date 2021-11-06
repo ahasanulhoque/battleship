@@ -1,4 +1,10 @@
-import { createPage, renderBoard } from './dom-manipulation.js';
+import {
+  createPage,
+  renderBoard,
+  updateHumanBoard,
+  updateAI,
+  updateAIBoard,
+} from './dom-manipulation.js';
 import { Gameboard } from './Gameboard.js';
 import { Player } from './Player.js';
 import { Ship } from './Ship.js';
@@ -35,9 +41,20 @@ const gameloop = (function loopThroughGame() {
   // Attach event listener to enemy board to allow human to attack it
   const boardTwo = document.querySelector('#board-two');
   boardTwo.onclick = (e) => {
+    // Get coordinates of space targeted by player
     const targetRow = e.target.id.charAt(14);
     const targetColumn = e.target.id.charAt(16);
-    aiBoard.receiveAttack(targetRow, targetColumn);
+
+    // isTargetAlredyHit returns true if target has already been hit
+    const isTargetAlreadyHit = aiBoard.receiveAttack(targetRow, targetColumn);
+
+    if (!isTargetAlreadyHit) {
+      /* 
+        This only runs if the target has not already been hit, preventing the
+        board from being updated again.
+      */
+      updateAIBoard(aiBoard.board, targetRow, targetColumn, boardTwo);
+    }
   };
 })();
 

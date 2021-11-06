@@ -21,8 +21,13 @@
   width: 10%;
 }
 
-.ship-space {
+.ship-space,
+.shot-space {
   display: flex;
   justify-content: center;
   font-weight: bolder;
+}
+
+.hit-space {
+  color: red;
 }

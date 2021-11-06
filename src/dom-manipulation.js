@@ -92,4 +92,38 @@ const renderBoard = function renderHumanBoardAfterShipsPlaced(
   }
 };
 
-export { createPage, renderBoard };
+const updateHumanBoard = function updateHumanBoardWhenHit() {
+  /* 
+    This function updates the human board when hit, keeping the letter
+    on the board but updating its color if a ship is hit.
+    A miss is represented by O
+  */
+};
+
+const updateAIBoard = function updateAIBoardWhenHit(
+  boardArray,
+  row,
+  column,
+  boardDOM
+) {
+  /*
+    This function updates the AI board when hit, using an X for a hit
+    ship and an O for a missed shot
+  */
+
+  const shotSpaceDOM = document.createElement('p');
+  shotSpaceDOM.classList.add('shot-space');
+
+  if (boardArray[row][column] === -1) {
+    shotSpaceDOM.innerHTML = 'X';
+    shotSpaceDOM.classList.add('hit-space');
+  } else if (boardArray[row][column] === 'miss') {
+    shotSpaceDOM.innerHTML = 'O';
+  }
+
+  boardDOM
+    .querySelector(`#board-2-space-${row}-${column}`)
+    .appendChild(shotSpaceDOM);
+};
+
+export { createPage, renderBoard, updateHumanBoard, updateAIBoard };
