@@ -31,6 +31,14 @@ const gameloop = (function loopThroughGame() {
   aiBoard.placeShip(Ship(3, 'B2'), 9, 0, 'horizontal');
   aiBoard.placeShip(Ship(3, 'B3'), 1, 3, 'vertical');
   aiBoard.placeShip(Ship(2, 'B4'), 5, 7, 'vertical');
+
+  // Attach event listener to enemy board to allow human to attack it
+  const boardTwo = document.querySelector('#board-two');
+  boardTwo.onclick = (e) => {
+    const targetRow = e.target.id.charAt(14);
+    const targetColumn = e.target.id.charAt(16);
+    aiBoard.receiveAttack(targetRow, targetColumn);
+  };
 })();
 
 export { gameloop };
