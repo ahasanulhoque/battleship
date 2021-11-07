@@ -18,8 +18,8 @@ const gameloop = (function loopThroughGame() {
   const aiBoard = Gameboard();
 
   // Initialize the players
-  const humanPlayer = Player('human', aiBoard);
-  const aiPlayer = Player('AI', humanBoard);
+  const humanPlayer = Player('human', aiBoard.board);
+  const aiPlayer = Player('AI', humanBoard.board);
 
   // Initialize the human ships (***MANUALLY PLACING FOR NOW***)
   humanBoard.placeShip(Ship(5, 'A0'), 8, 4, 'horizontal');
@@ -41,19 +41,19 @@ const gameloop = (function loopThroughGame() {
   // Attach event listener to enemy board to allow human to attack it
   const boardTwo = document.querySelector('#board-two');
   boardTwo.onclick = (e) => {
-    // Get coordinates of space targeted by player
-    const targetRow = e.target.id.charAt(14);
-    const targetColumn = e.target.id.charAt(16);
+    // Choose target based on where player clicked
+    const humanTarget = humanPlayer.chooseTarget(
+      e.target.id.charAt(14),
+      e.target.id.charAt(16)
+    );
 
-    // isTargetAlredyHit returns true if target has already been hit
-    const isTargetAlreadyHit = aiBoard.receiveAttack(targetRow, targetColumn);
-
-    if (!isTargetAlreadyHit) {
+    if (humanTarget) {
       /* 
         This only runs if the target has not already been hit, preventing the
         board from being updated again.
       */
-      updateAIBoard(aiBoard.board, targetRow, targetColumn, boardTwo);
+      aiBoard.receiveAttack(humanTarget[0], humanTarget[1]);
+      updateAIBoard(aiBoard.board, humanTarget[0], humanTarget[1], boardTwo);
     }
   };
 })();

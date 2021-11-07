@@ -106,9 +106,6 @@ const Gameboard = () => {
       // If shot misses, keep track of it and update board
       missedShots.push([row, column]);
       board[row][column] = 'miss';
-    } else if (board[row][column] === 'miss' || board[row][column] === -1) {
-      // If space has already been hit, return true
-      return true;
     }
   };
 
