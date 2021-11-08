@@ -2,7 +2,6 @@ import {
   createPage,
   renderBoard,
   updateHumanBoard,
-  updateAI,
   updateAIBoard,
 } from './dom-manipulation.js';
 import { Gameboard } from './Gameboard.js';
@@ -21,6 +20,10 @@ const gameloop = (function loopThroughGame() {
   const humanPlayer = Player('human', aiBoard.board);
   const aiPlayer = Player('AI', humanBoard.board);
 
+  // Select the boards in the DOM
+  const boardOne = document.querySelector('#board-one');
+  const boardTwo = document.querySelector('#board-two');
+
   // Initialize the human ships (***MANUALLY PLACING FOR NOW***)
   humanBoard.placeShip(Ship(5, 'A0'), 8, 4, 'horizontal');
   humanBoard.placeShip(Ship(4, 'A1'), 1, 1, 'vertical');
@@ -29,7 +32,7 @@ const gameloop = (function loopThroughGame() {
   humanBoard.placeShip(Ship(2, 'A4'), 5, 7, 'horizontal');
 
   // Update human player's board in DOM
-  renderBoard(humanBoard.board, document.querySelector('#board-one'));
+  renderBoard(humanBoard.board, boardOne);
 
   // Initialize the AI ships (***MANUALLY PLACING FOR NOW***)
   aiBoard.placeShip(Ship(5, 'B0'), 0, 2, 'vertical');
@@ -39,7 +42,6 @@ const gameloop = (function loopThroughGame() {
   aiBoard.placeShip(Ship(2, 'B4'), 5, 7, 'vertical');
 
   // Attach event listener to enemy board to allow human to attack it
-  const boardTwo = document.querySelector('#board-two');
   boardTwo.onclick = (e) => {
     // Choose target based on where player clicked
     const humanTarget = humanPlayer.chooseTarget(
@@ -50,10 +52,18 @@ const gameloop = (function loopThroughGame() {
     if (humanTarget) {
       /* 
         This only runs if the target has not already been hit, preventing the
-        board from being updated again.
+        board from being updated again and from the AI from attacking until a valid
+        target is chosen.
       */
+
+      // Attack the AI board and update the AI board in the DOM
       aiBoard.receiveAttack(humanTarget[0], humanTarget[1]);
       updateAIBoard(aiBoard.board, humanTarget[0], humanTarget[1], boardTwo);
+
+      // AI player chooses target. Human board is attacked and human board is updated in DOM
+      const aiTarget = aiPlayer.chooseTarget();
+      humanBoard.receiveAttack(aiTarget[0], aiTarget[1]);
+      updateHumanBoard(humanBoard.board, aiTarget[0], aiTarget[1], boardOne);
     }
   };
 })();

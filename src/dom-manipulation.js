@@ -92,12 +92,34 @@ const renderBoard = function renderHumanBoardAfterShipsPlaced(
   }
 };
 
-const updateHumanBoard = function updateHumanBoardWhenHit() {
+const updateHumanBoard = function updateHumanBoardWhenHit(
+  boardArray,
+  row,
+  column,
+  boardDOM
+) {
   /* 
     This function updates the human board when hit, keeping the letter
     on the board but updating its color if a ship is hit.
     A miss is represented by O
   */
+
+  if (boardArray[row][column] === -1) {
+    // Change the color of the existing DOM element for the ship to red
+    boardDOM
+      .querySelector(`#board-1-space-${row}-${column}`)
+      .querySelector('.ship-space')
+      .classList.add('hit-space');
+  } else if (boardArray[row][column] === 'miss') {
+    // Add an element to the DOM to show the miss
+    const shotSpaceDOM = document.createElement('p');
+    shotSpaceDOM.classList.add('shot-space');
+    shotSpaceDOM.innerHTML = 'O';
+
+    boardDOM
+      .querySelector(`#board-1-space-${row}-${column}`)
+      .appendChild(shotSpaceDOM);
+  }
 };
 
 const updateAIBoard = function updateAIBoardWhenHit(
