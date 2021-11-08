@@ -64,6 +64,14 @@ const gameloop = (function loopThroughGame() {
       const aiTarget = aiPlayer.chooseTarget();
       humanBoard.receiveAttack(aiTarget[0], aiTarget[1]);
       updateHumanBoard(humanBoard.board, aiTarget[0], aiTarget[1], boardOne);
+      endGame();
+    }
+  };
+
+  // This function will check if the game is over
+  const endGame = function checkIfGameIsOver() {
+    if (humanBoard.checkAllSunk() || aiBoard.checkAllSunk()) {
+      alert('Game over!');
     }
   };
 })();
