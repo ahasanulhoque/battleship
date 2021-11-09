@@ -3,6 +3,7 @@ const createPage = function createPageOnInitialPageLoad(content) {
   pageTitle.id = 'page-title';
   pageTitle.innerHTML = 'BATTLESHIP';
 
+  // Show the play area and boards in the DOM
   const playArea = document.createElement('section');
   playArea.id = 'play-area';
 
@@ -45,8 +46,25 @@ const createPage = function createPageOnInitialPageLoad(content) {
   playArea.appendChild(boardOne);
   playArea.appendChild(boardTwo);
 
+  // Also create the game over modal, which will be hidden by default
+  const gameOver = document.createElement('div');
+  gameOver.id = 'game-over-modal';
+
+  // Text that will appear in the modal. This will be empty, and populate upon game over
+  const gameOverText = document.createElement('p');
+  gameOverText.id = 'game-over-text';
+
+  // Play again button that will appear in the modal
+  const playAgainButton = document.createElement('button');
+  playAgainButton.id = 'play-again-button';
+  playAgainButton.innerHTML = 'Play again';
+
+  gameOver.appendChild(gameOverText);
+  gameOver.appendChild(playAgainButton);
+
   content.appendChild(pageTitle);
   content.appendChild(playArea);
+  content.appendChild(gameOver);
 };
 
 const renderBoard = function renderHumanBoardAfterShipsPlaced(
@@ -148,4 +166,26 @@ const updateAIBoard = function updateAIBoardWhenHit(
     .appendChild(shotSpaceDOM);
 };
 
-export { createPage, renderBoard, updateHumanBoard, updateAIBoard };
+const showGameOver = function showModalWhenGameEnds(modal, newText, result) {
+  /*
+    This function shows the game over modal in the DOM by changing its display element.
+    It also updates the text of the modal p elemeent (newText), using the result 
+    parameter of the function.
+    'win' = show human won
+    'lose' = show human lost
+  */
+  if (result === 'win') {
+    newText.innerHTML = 'You won!';
+  } else if (result === 'lose') {
+    newText.innerHTML = 'You lost';
+  }
+  modal.style.display = 'block';
+};
+
+export {
+  createPage,
+  renderBoard,
+  updateHumanBoard,
+  updateAIBoard,
+  showGameOver,
+};

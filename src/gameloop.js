@@ -3,6 +3,7 @@ import {
   renderBoard,
   updateHumanBoard,
   updateAIBoard,
+  showGameOver,
 } from './dom-manipulation.js';
 import { Gameboard } from './Gameboard.js';
 import { Player } from './Player.js';
@@ -71,7 +72,17 @@ const gameloop = (function loopThroughGame() {
   // This function will check if the game is over
   const endGame = function checkIfGameIsOver() {
     if (humanBoard.checkAllSunk() || aiBoard.checkAllSunk()) {
-      alert('Game over!');
+      let result;
+      if (humanBoard.checkAllSunk()) {
+        result = 'lose';
+      } else if (aiBoard.checkAllSunk()) {
+        result = 'win';
+      }
+      showGameOver(
+        document.querySelector('#game-over-modal'),
+        document.querySelector('#game-over-text'),
+        result
+      );
     }
   };
 })();
