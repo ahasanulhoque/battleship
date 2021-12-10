@@ -46,10 +46,230 @@ const createPage = function createPageOnInitialPageLoad(content) {
   playArea.appendChild(boardOne);
   playArea.appendChild(boardTwo);
 
+  const informationArea = document.createElement('section');
+  informationArea.id = 'information-area';
+
+  // Section for human ships
+  const humanShipsArea = document.createElement('section');
+  humanShipsArea.id = 'human-ships-wrapper';
+
+  // Dropdown for human ships
+  const humanShipsLabel = document.createElement('label');
+  humanShipsLabel.setAttribute('for', 'human-ships');
+
+  const humanShipsSelect = document.createElement('select');
+  humanShipsSelect.setAttribute('name', 'human-ships');
+  humanShipsSelect.id = 'human-ships-select';
+
+  const humanCarrier = document.createElement('option');
+  humanCarrier.setAttribute('value', 'carrier');
+  humanCarrier.innerHTML = 'Carrier';
+  humanShipsSelect.appendChild(humanCarrier);
+
+  const humanBatleship = document.createElement('option');
+  humanBatleship.setAttribute('value', 'battleship');
+  humanBatleship.innerHTML = 'Battleship';
+  humanShipsSelect.appendChild(humanBatleship);
+
+  const humanDestroyer = document.createElement('option');
+  humanDestroyer.setAttribute('value', 'destroyer');
+  humanDestroyer.innerHTML = 'Destroyer';
+  humanShipsSelect.appendChild(humanDestroyer);
+
+  const humanSubmarine = document.createElement('option');
+  humanSubmarine.setAttribute('value', 'submarine');
+  humanSubmarine.innerHTML = 'Submarine';
+  humanShipsSelect.appendChild(humanSubmarine);
+
+  const humanPatrol = document.createElement('option');
+  humanPatrol.setAttribute('value', 'patrol');
+  humanPatrol.innerHTML = 'Patrol Boat';
+  humanShipsSelect.appendChild(humanPatrol);
+
+  // Area for huma to place ships
+  const shipPlacementWrapper = document.createElement('section');
+  shipPlacementWrapper.id = 'ship-placement-wrapper';
+
+  const xLabel = document.createElement('label');
+  xLabel.setAttribute('for', 'x-coord');
+
+  const xSelect = document.createElement('select');
+  xSelect.setAttribute('name', 'x-coord');
+  xSelect.id = 'x-coord';
+
+  const x1 = document.createElement('option');
+  x1.setAttribute('value', '1');
+  x1.innerHTML = '1';
+  xSelect.appendChild(x1);
+
+  const x2 = document.createElement('option');
+  x2.setAttribute('value', '2');
+  x2.innerHTML = '2';
+  xSelect.appendChild(x2);
+
+  const x3 = document.createElement('option');
+  x3.setAttribute('value', '3');
+  x3.innerHTML = '3';
+  xSelect.appendChild(x3);
+
+  const x4 = document.createElement('option');
+  x4.setAttribute('value', '4');
+  x4.innerHTML = '4';
+  xSelect.appendChild(x4);
+
+  const x5 = document.createElement('option');
+  x5.setAttribute('value', '5');
+  x5.innerHTML = '5';
+  xSelect.appendChild(x5);
+
+  const x6 = document.createElement('option');
+  x6.setAttribute('value', '6');
+  x6.innerHTML = '6';
+  xSelect.appendChild(x6);
+
+  const x7 = document.createElement('option');
+  x7.setAttribute('value', '7');
+  x7.innerHTML = '7';
+  xSelect.appendChild(x7);
+
+  const x8 = document.createElement('option');
+  x8.setAttribute('value', '8');
+  x8.innerHTML = '8';
+  xSelect.appendChild(x8);
+
+  const x9 = document.createElement('option');
+  x9.setAttribute('value', '9');
+  x9.innerHTML = '9';
+  xSelect.appendChild(x9);
+
+  const yLabel = document.createElement('label');
+  yLabel.setAttribute('for', 'y-coord');
+
+  const ySelect = document.createElement('select');
+  ySelect.setAttribute('name', 'y-coord');
+  ySelect.id = 'y-coord';
+
+  const y1 = document.createElement('option');
+  y1.setAttribute('value', '1');
+  y1.innerHTML = '1';
+  ySelect.appendChild(y1);
+
+  const y2 = document.createElement('option');
+  y2.setAttribute('value', '2');
+  y2.innerHTML = '2';
+  ySelect.appendChild(y2);
+
+  const y3 = document.createElement('option');
+  y3.setAttribute('value', '3');
+  y3.innerHTML = '3';
+  ySelect.appendChild(y3);
+
+  const y4 = document.createElement('option');
+  y4.setAttribute('value', '4');
+  y4.innerHTML = '4';
+  ySelect.appendChild(y4);
+
+  const y5 = document.createElement('option');
+  y5.setAttribute('value', '5');
+  y5.innerHTML = '5';
+  ySelect.appendChild(y5);
+
+  const y6 = document.createElement('option');
+  y6.setAttribute('value', '6');
+  y6.innerHTML = '6';
+  ySelect.appendChild(y6);
+
+  const y7 = document.createElement('option');
+  y7.setAttribute('value', '7');
+  y7.innerHTML = '7';
+  ySelect.appendChild(y7);
+
+  const y8 = document.createElement('option');
+  y8.setAttribute('value', '8');
+  y8.innerHTML = '8';
+  ySelect.appendChild(y8);
+
+  const y9 = document.createElement('option');
+  y9.setAttribute('value', '9');
+  y9.innerHTML = '9';
+  ySelect.appendChild(y9);
+
+  const orientationLabel = document.createElement('label');
+  orientationLabel.setAttribute('for', 'orientation');
+
+  const orientationSelect = document.createElement('select');
+  orientationSelect.setAttribute('name', 'orientation');
+  orientationSelect.id = 'orientation-select';
+
+  const horizontalSelect = document.createElement('option');
+  horizontalSelect.setAttribute('value', 'horizontal');
+  horizontalSelect.innerHTML = 'Horizontal';
+  orientationSelect.appendChild(horizontalSelect);
+
+  const verticalSelect = document.createElement('option');
+  verticalSelect.setAttribute('value', 'vertical');
+  verticalSelect.innerHTML = 'Vertical';
+  orientationSelect.appendChild(verticalSelect);
+
+  const placeButton = document.createElement('button');
+  placeButton.id = 'place-ship';
+  placeButton.innerHTML = 'Place Ship';
+
+  shipPlacementWrapper.appendChild(xLabel);
+  shipPlacementWrapper.appendChild(xSelect);
+  shipPlacementWrapper.appendChild(yLabel);
+  shipPlacementWrapper.appendChild(ySelect);
+  shipPlacementWrapper.appendChild(orientationLabel);
+  shipPlacementWrapper.appendChild(orientationSelect);
+  shipPlacementWrapper.appendChild(placeButton);
+
+  humanShipsArea.appendChild(humanShipsLabel);
+  humanShipsArea.appendChild(humanShipsSelect);
+  humanShipsArea.appendChild(shipPlacementWrapper);
+
   // Create button that allows human to restart at any time
   const restartButton = document.createElement('button');
   restartButton.id = 'restart-game-button';
   restartButton.innerHTML = 'Restart';
+
+  // Area for AI ships
+  const aiShipsArea = document.createElement('section');
+  aiShipsArea.id = 'ai-ships-wrapper';
+
+  // List for AI ships
+  const aiShipsList = document.createElement('ul');
+  aiShipsList.id = 'ai-list';
+
+  const aiCarrier = document.createElement('li');
+  aiCarrier.id = 'ai-carrier';
+  aiCarrier.innerHTML = 'Carrier';
+  aiShipsList.appendChild(aiCarrier);
+
+  const aiBattleship = document.createElement('li');
+  aiBattleship.id = 'ai-battleship';
+  aiBattleship.innerHTML = 'Battleship';
+  aiShipsList.appendChild(aiBattleship);
+
+  const aiDestroyer = document.createElement('li');
+  aiDestroyer.id = 'ai-destroyer';
+  aiDestroyer.innerHTML = 'Destroyer';
+  aiShipsList.appendChild(aiDestroyer);
+
+  const aiSubmarine = document.createElement('li');
+  aiSubmarine.id = 'ai-submarine';
+  aiSubmarine.innerHTML = 'Submarine';
+  aiShipsList.appendChild(aiSubmarine);
+
+  const aiPatrol = document.createElement('li');
+  aiPatrol.id = 'ai-patrol';
+  aiPatrol.innerHTML = 'Patrol Boat';
+  aiShipsList.appendChild(aiPatrol);
+
+  aiShipsArea.appendChild(aiShipsList);
+
+  informationArea.appendChild(humanShipsArea);
+  informationArea.appendChild(restartButton);
+  informationArea.appendChild(aiShipsArea);
 
   // Also create the game over modal, which will be hidden by default
   const gameOver = document.createElement('div');
@@ -69,7 +289,7 @@ const createPage = function createPageOnInitialPageLoad(content) {
 
   content.appendChild(pageTitle);
   content.appendChild(playArea);
-  content.appendChild(restartButton);
+  content.appendChild(informationArea);
   content.appendChild(gameOver);
 };
 
