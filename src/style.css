@@ -17,7 +17,7 @@
 
 .space {
   border: solid thin;
-  background-color: lightblue;
+  background-color: rgba(51, 100, 235, 0.788);
   width: 10%;
 }
 
@@ -28,8 +28,16 @@
   font-weight: bolder;
 }
 
+.shot-space {
+  color: white;
+}
+
 .hit-space {
   color: red;
+}
+
+#restart-game-button {
+  text-align: center;
 }
 
 #game-over-modal {
