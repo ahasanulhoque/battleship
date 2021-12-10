@@ -25,8 +25,11 @@ const gameloop = (function loopThroughGame() {
   let boardOne = document.querySelector('#board-one');
   let boardTwo = document.querySelector('#board-two');
 
+  // Select the button to restart the game at any time
+  let restartButton = document.querySelector('#restart-game-button');
+
   // Select the button to restart game after it is over
-  let restartButton = document.querySelector('#play-again-button');
+  let playAgainButton = document.querySelector('#play-again-button');
 
   // Initialize the human ships (***MANUALLY PLACING FOR NOW***)
   humanBoard.placeShip(Ship(5, 'A0'), 8, 4, 'horizontal');
@@ -101,11 +104,13 @@ const gameloop = (function loopThroughGame() {
     // Render page again
     createPage(document.querySelector('#content'));
 
-    // Select boards and restart button again
+    // Select boards and restart buttons again
     boardOne = document.querySelector('#board-one');
     boardTwo = document.querySelector('#board-two');
 
-    restartButton = document.querySelector('#play-again-button');
+    restartButton = document.querySelector('#restart-game-button');
+
+    playAgainButton = document.querySelector('#play-again-button');
 
     // Initialize the boards again
     humanBoard = Gameboard();
@@ -137,8 +142,12 @@ const gameloop = (function loopThroughGame() {
       playGame(e);
     };
 
-    // Attach event listener to restart button to allow human to restart again
+    // Attach event listener to restart buttons to allow human to restart again
     restartButton.onclick = () => {
+      restartGame();
+    };
+
+    playAgainButton.onclick = () => {
       restartGame();
     };
   };
@@ -148,8 +157,12 @@ const gameloop = (function loopThroughGame() {
     playGame(e);
   };
 
-  // Attach even listener to restart button to allow human to restart
+  // Attach even listener to restart buttons to allow human to restart
   restartButton.onclick = () => {
+    restartGame();
+  };
+
+  playAgainButton.onclick = () => {
     restartGame();
   };
 })();

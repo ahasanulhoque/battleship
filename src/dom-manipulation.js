@@ -46,6 +46,11 @@ const createPage = function createPageOnInitialPageLoad(content) {
   playArea.appendChild(boardOne);
   playArea.appendChild(boardTwo);
 
+  // Create button that allows human to restart at any time
+  const restartButton = document.createElement('button');
+  restartButton.id = 'restart-game-button';
+  restartButton.innerHTML = 'Restart';
+
   // Also create the game over modal, which will be hidden by default
   const gameOver = document.createElement('div');
   gameOver.id = 'game-over-modal';
@@ -64,6 +69,7 @@ const createPage = function createPageOnInitialPageLoad(content) {
 
   content.appendChild(pageTitle);
   content.appendChild(playArea);
+  content.appendChild(restartButton);
   content.appendChild(gameOver);
 };
 
