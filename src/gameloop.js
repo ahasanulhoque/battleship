@@ -2,6 +2,8 @@ import {
   createPage,
   renderBoard,
   removeShipOption,
+  enableButton,
+  startGame,
   updateHumanBoard,
   updateAIBoard,
   showGameOver,
@@ -25,6 +27,9 @@ const gameloop = (function loopThroughGame() {
   // Select the boards in the DOM
   let boardOne = document.querySelector('#board-one');
   let boardTwo = document.querySelector('#board-two');
+
+  // Select the button to start the game once all ships have been placed
+  let startButton = document.querySelector('#start-game-button');
 
   // Select the button to restart the game at any time
   let restartButton = document.querySelector('#restart-game-button');
@@ -108,6 +113,11 @@ const gameloop = (function loopThroughGame() {
         )
       );
     }
+
+    if (!document.querySelector('#human-ships-select').firstChild) {
+      // If all ships have been removed, enable the start button
+      enableButton(startButton);
+    }
   };
 
   // This function runs when the human player clicks the AI board to attack
@@ -128,6 +138,7 @@ const gameloop = (function loopThroughGame() {
       // Attack the AI board and update the AI board in the DOM
       aiBoard.receiveAttack(humanTarget[0], humanTarget[1]);
       updateAIBoard(aiBoard.board, humanTarget[0], humanTarget[1], boardTwo);
+      endGame();
 
       // AI player chooses target. Human board is attacked and human board is updated in DOM
       const aiTarget = aiPlayer.chooseTarget();
@@ -215,10 +226,13 @@ const gameloop = (function loopThroughGame() {
   };
 
   // Attach event listener to buton to place human ships
-  placeShipButton.onclick = (e) => {
+  placeShipButton.onclick = () => {
     placeSelectedShip();
     renderBoard(humanBoard.board, boardOne);
-    console.log(humanBoard.board);
+  };
+
+  startButton.onclick = () => {
+    startGame(document.querySelector('#play-area'));
   };
 
   // Attach event listener to enemy board to allow human to attack it

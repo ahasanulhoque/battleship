@@ -6,6 +6,7 @@ const createPage = function createPageOnInitialPageLoad(content) {
   // Show the play area and boards in the DOM
   const playArea = document.createElement('section');
   playArea.id = 'play-area';
+  playArea.setAttribute('style', 'pointer-events: none');
 
   const boardOne = document.createElement('section');
   boardOne.id = 'board-one';
@@ -237,10 +238,26 @@ const createPage = function createPageOnInitialPageLoad(content) {
   humanShipsArea.appendChild(humanShipsSelect);
   humanShipsArea.appendChild(shipPlacementWrapper);
 
+  // Create wrapper for start and restart buttons
+  const buttonWrapper = document.createElement('section');
+  buttonWrapper.id = 'start-restart-wrapper';
+
+  /*
+    Create button that allows human to start game once ships
+    have been selected. Initially disabled
+  */
+  const startButton = document.createElement('button');
+  startButton.id = 'start-game-button';
+  startButton.setAttribute('disabled', true);
+  startButton.innerHTML = 'Start';
+
   // Create button that allows human to restart at any time
   const restartButton = document.createElement('button');
   restartButton.id = 'restart-game-button';
   restartButton.innerHTML = 'Restart';
+
+  buttonWrapper.appendChild(startButton);
+  buttonWrapper.appendChild(restartButton);
 
   // Area for AI ships
   const aiShipsArea = document.createElement('section');
@@ -278,7 +295,7 @@ const createPage = function createPageOnInitialPageLoad(content) {
   aiShipsArea.appendChild(aiShipsList);
 
   informationArea.appendChild(humanShipsArea);
-  informationArea.appendChild(restartButton);
+  informationArea.appendChild(buttonWrapper);
   informationArea.appendChild(aiShipsArea);
 
   // Also create the game over modal, which will be hidden by default
@@ -362,6 +379,23 @@ const removeShipOption = function removeShipFromDropdown(
   shipDropdown.removeChild(shipToRemove);
 };
 
+const enableButton = function enableCurrentlyDisabledButton(buttonToEnable) {
+  /*
+    This funciton enables a button. Used to enable the start button after
+    the user is done placing ships
+  */
+  buttonToEnable.removeAttribute('disabled');
+};
+
+const startGame = function startGameWhenStartButtonClicked(gameArea) {
+  /*
+    This function starts the game when the start button is clicked,
+    by removing the styling that disables clicking
+  */
+
+  gameArea.removeAttribute('style');
+};
+
 const updateHumanBoard = function updateHumanBoardWhenHit(
   boardArray,
   row,
@@ -438,6 +472,8 @@ export {
   createPage,
   renderBoard,
   removeShipOption,
+  enableButton,
+  startGame,
   updateHumanBoard,
   updateAIBoard,
   showGameOver,
