@@ -142,6 +142,11 @@ const createPage = function createPageOnInitialPageLoad(content) {
   x9.innerHTML = '9';
   xSelect.appendChild(x9);
 
+  const x10 = document.createElement('option');
+  x10.setAttribute('value', '10');
+  x10.innerHTML = '10';
+  xSelect.appendChild(x10);
+
   const yLabel = document.createElement('label');
   yLabel.setAttribute('for', 'y-coord');
 
@@ -193,6 +198,11 @@ const createPage = function createPageOnInitialPageLoad(content) {
   y9.setAttribute('value', '9');
   y9.innerHTML = '9';
   ySelect.appendChild(y9);
+
+  const y10 = document.createElement('option');
+  y10.setAttribute('value', '10');
+  y10.innerHTML = '10';
+  ySelect.appendChild(y10);
 
   const orientationLabel = document.createElement('label');
   orientationLabel.setAttribute('for', 'orientation');
