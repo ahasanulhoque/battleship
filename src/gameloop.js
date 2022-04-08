@@ -249,7 +249,7 @@ const gameloop = (function loopThroughGame() {
     restartGame();
   };
 
-  // Need to wire ship placement DOM elements to gameloop
+  // Need to wire ship placement when game is restarted
   // Need AI to randomly place ships
   // Idea for validation: if board has not changed due to invalid placement,
   // make human/AI player place ship again
