@@ -31,15 +31,20 @@ const gameloop = (function loopThroughGame() {
   // Select the button to restart game after it is over
   let playAgainButton = document.querySelector('#play-again-button');
 
+  // Select the button to place a ship
+  let placeShipButton = document.querySelector('#place-ship');
+
   // Initialize the human ships (***MANUALLY PLACING FOR NOW***)
+  /*
   humanBoard.placeShip(Ship(5, 'A0'), 8, 4, 'horizontal');
   humanBoard.placeShip(Ship(4, 'A1'), 1, 1, 'vertical');
   humanBoard.placeShip(Ship(3, 'A2'), 0, 9, 'vertical');
   humanBoard.placeShip(Ship(3, 'A3'), 3, 3, 'horizontal');
   humanBoard.placeShip(Ship(2, 'A4'), 5, 7, 'horizontal');
+  */
 
   // Update human player's board in DOM
-  renderBoard(humanBoard.board, boardOne);
+  // renderBoard(humanBoard.board, boardOne);
 
   // Initialize the AI ships (***MANUALLY PLACING FOR NOW***)
   aiBoard.placeShip(Ship(5, 'B0'), 0, 2, 'vertical');
@@ -47,6 +52,44 @@ const gameloop = (function loopThroughGame() {
   aiBoard.placeShip(Ship(3, 'B2'), 9, 0, 'horizontal');
   aiBoard.placeShip(Ship(3, 'B3'), 1, 3, 'vertical');
   aiBoard.placeShip(Ship(2, 'B4'), 5, 7, 'vertical');
+
+  // This function runs when human player clicks button to place a ship
+  const placeSelectedShip = function placeHumanSelectedShip() {
+    let shipLength;
+    let shipBoardValue;
+
+    if (document.querySelector('#human-ships-select').value == 'carrier') {
+      shipLength = 5;
+      shipBoardValue = 'A0';
+    } else if (
+      document.querySelector('#human-ships-select').value == 'battleship'
+    ) {
+      shipLength = 4;
+      shipBoardValue = 'A1';
+    } else if (
+      document.querySelector('#human-ships-select').value == 'destroyer'
+    ) {
+      shipLength = 3;
+      shipBoardValue = 'A2';
+    } else if (
+      document.querySelector('#human-ships-select').value == 'submarine'
+    ) {
+      shipLength = 3;
+      shipBoardValue = 'A3';
+    } else if (
+      document.querySelector('#human-ships-select').value == 'patrol'
+    ) {
+      shipLength = 2;
+      shipBoardValue = 'A4';
+    }
+
+    humanBoard.placeShip(
+      Ship(shipLength, shipBoardValue),
+      document.querySelector('#y-coord').value - 1,
+      document.querySelector('#x-coord').value - 1,
+      document.querySelector('#orientation-select').value
+    );
+  };
 
   // This function runs when the human player clicks the AI board to attack
   const playGame = function playOnHumanClick(e) {
@@ -150,6 +193,13 @@ const gameloop = (function loopThroughGame() {
     playAgainButton.onclick = () => {
       restartGame();
     };
+  };
+
+  // Attach event listener to buton to place human ships
+  placeShipButton.onclick = (e) => {
+    placeSelectedShip();
+    renderBoard(humanBoard.board, boardOne);
+    console.log(humanBoard.board);
   };
 
   // Attach event listener to enemy board to allow human to attack it
