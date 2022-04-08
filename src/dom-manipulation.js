@@ -350,6 +350,18 @@ const renderBoard = function renderHumanBoardAfterShipsPlaced(
   }
 };
 
+const removeShipOption = function removeShipFromDropdown(
+  shipDropdown,
+  shipToRemove
+) {
+  /*
+    This function removes a ship from the dropdown after a human places
+    it, so it cannot be selected more than once
+  */
+
+  shipDropdown.removeChild(shipToRemove);
+};
+
 const updateHumanBoard = function updateHumanBoardWhenHit(
   boardArray,
   row,
@@ -425,6 +437,7 @@ const showGameOver = function showModalWhenGameEnds(modal, newText, result) {
 export {
   createPage,
   renderBoard,
+  removeShipOption,
   updateHumanBoard,
   updateAIBoard,
   showGameOver,

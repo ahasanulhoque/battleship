@@ -1,6 +1,7 @@
 import {
   createPage,
   renderBoard,
+  removeShipOption,
   updateHumanBoard,
   updateAIBoard,
   showGameOver,
@@ -89,6 +90,24 @@ const gameloop = (function loopThroughGame() {
       document.querySelector('#x-coord').value - 1,
       document.querySelector('#orientation-select').value
     );
+
+    if (
+      humanBoard.board[document.querySelector('#y-coord').value - 1][
+        document.querySelector('#x-coord').value - 1
+      ] ==
+      shipBoardValue + '0'
+    ) {
+      /*
+        If the selected ship was placed successfully, remove it as an option
+        from the dropdown
+      */
+      removeShipOption(
+        document.querySelector('#human-ships-select'),
+        document.querySelector(
+          `option[value=${document.querySelector('#human-ships-select').value}`
+        )
+      );
+    }
   };
 
   // This function runs when the human player clicks the AI board to attack
