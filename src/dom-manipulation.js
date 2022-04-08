@@ -320,7 +320,11 @@ const renderBoard = function renderHumanBoardAfterShipsPlaced(
 
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
-      if (boardArray[i][j] != 0) {
+      // Will only run if board value is not 0 and if selected DOM element does not already have child
+      if (
+        boardArray[i][j] != 0 &&
+        !boardDOM.querySelector(`#board-1-space-${i}-${j}`).firstChild
+      ) {
         // If a space is not 0, create this DOM element which will display space on board
         const shipSpaceDOM = document.createElement('p');
         shipSpaceDOM.classList.add('ship-space');
