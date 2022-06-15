@@ -177,9 +177,11 @@ const gameloop = (function loopThroughGame() {
     // Render page again
     createPage(document.querySelector('#content'));
 
-    // Select boards and restart buttons again
+    // Select boards and buttons again
     boardOne = document.querySelector('#board-one');
     boardTwo = document.querySelector('#board-two');
+
+    startButton = document.querySelector('#start-game-button');
 
     restartButton = document.querySelector('#restart-game-button');
 
@@ -194,14 +196,16 @@ const gameloop = (function loopThroughGame() {
     aiPlayer = Player('AI', humanBoard.board);
 
     // Initialize the human ships (***MANUALLY PLACING FOR NOW***)
-    humanBoard.placeShip(Ship(5, 'A0'), 8, 4, 'horizontal');
+    /*humanBoard.placeShip(Ship(5, 'A0'), 8, 4, 'horizontal');
     humanBoard.placeShip(Ship(4, 'A1'), 1, 1, 'vertical');
     humanBoard.placeShip(Ship(3, 'A2'), 0, 9, 'vertical');
     humanBoard.placeShip(Ship(3, 'A3'), 3, 3, 'horizontal');
-    humanBoard.placeShip(Ship(2, 'A4'), 5, 7, 'horizontal');
+    humanBoard.placeShip(Ship(2, 'A4'), 5, 7, 'horizontal');*/
+
+    placeShipButton = document.querySelector('#place-ship');
 
     // Update human player's board in DOM
-    renderBoard(humanBoard.board, boardOne);
+    // renderBoard(humanBoard.board, boardOne);
 
     // Initialize the AI ships (***MANUALLY PLACING FOR NOW***)
     aiBoard.placeShip(Ship(5, 'B0'), 0, 2, 'vertical');
@@ -209,6 +213,17 @@ const gameloop = (function loopThroughGame() {
     aiBoard.placeShip(Ship(3, 'B2'), 9, 0, 'horizontal');
     aiBoard.placeShip(Ship(3, 'B3'), 1, 3, 'vertical');
     aiBoard.placeShip(Ship(2, 'B4'), 5, 7, 'vertical');
+
+    // Attach event listener to place ship button to allow human to plce ships
+    placeShipButton.onclick = () => {
+      placeSelectedShip();
+      renderBoard(humanBoard.board, boardOne);
+    };
+
+    // Attach event listener to start button to allow human to play again
+    startButton.onclick = () => {
+      startGame(document.querySelector('#play-area'));
+    };
 
     // Attach event listener to enemy board to allow human to attack it again
     boardTwo.onclick = (e) => {
@@ -249,7 +264,6 @@ const gameloop = (function loopThroughGame() {
     restartGame();
   };
 
-  // Need to wire ship placement when game is restarted
   // Need AI to randomly place ships
   // Idea for validation: if board has not changed due to invalid placement,
   // make human/AI player place ship again
