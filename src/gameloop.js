@@ -40,24 +40,86 @@ const gameloop = (function loopThroughGame() {
   // Select the button to place a ship
   let placeShipButton = document.querySelector('#place-ship');
 
-  // Initialize the human ships (***MANUALLY PLACING FOR NOW***)
-  /*
-  humanBoard.placeShip(Ship(5, 'A0'), 8, 4, 'horizontal');
-  humanBoard.placeShip(Ship(4, 'A1'), 1, 1, 'vertical');
-  humanBoard.placeShip(Ship(3, 'A2'), 0, 9, 'vertical');
-  humanBoard.placeShip(Ship(3, 'A3'), 3, 3, 'horizontal');
-  humanBoard.placeShip(Ship(2, 'A4'), 5, 7, 'horizontal');
-  */
-
-  // Update human player's board in DOM
-  // renderBoard(humanBoard.board, boardOne);
-
   // Initialize the AI ships (***MANUALLY PLACING FOR NOW***)
-  aiBoard.placeShip(Ship(5, 'B0'), 0, 2, 'vertical');
+  /*aiBoard.placeShip(Ship(5, 'B0'), 0, 2, 'vertical');
   aiBoard.placeShip(Ship(4, 'B1'), 6, 3, 'horizontal');
   aiBoard.placeShip(Ship(3, 'B2'), 9, 0, 'horizontal');
   aiBoard.placeShip(Ship(3, 'B3'), 1, 3, 'vertical');
-  aiBoard.placeShip(Ship(2, 'B4'), 5, 7, 'vertical');
+  aiBoard.placeShip(Ship(2, 'B4'), 5, 7, 'vertical');*/
+
+  // Loop through and place AI ships
+  const setAIBoard = function randomlySetAllAIShips() {
+    // Loop through ships to place them
+    for (let i = 0; i < 5; i++) {
+      if (i == 0) {
+        placeAIShip('carrier', i);
+      } else if (i == 1) {
+        placeAIShip('battleship', i);
+      } else if (i == 2) {
+        placeAIShip('destroyer', i);
+      } else if (i == 3) {
+        placeAIShip('sumbarine', i);
+      } else if (i == 4) {
+        placeAIShip('patrol', i);
+      }
+    }
+
+    console.log(aiBoard.board);
+  };
+
+  const placeAIShip = function randomlyPlaceAIShip(shipType, loopIterator) {
+    let shipLength;
+    let shipBoardValue;
+
+    // Determine ship attributes
+    if (shipType == 'carrier') {
+      shipLength = 5;
+      shipBoardValue = 'B0';
+    } else if (shipType == 'battleship') {
+      shipLength = 4;
+      shipBoardValue = 'B1';
+    } else if (shipType == 'destroyer') {
+      shipLength = 3;
+      shipBoardValue = 'B2';
+    } else if (shipType == 'submarine') {
+      shipLength = 3;
+      shipBoardValue = 'B3';
+    } else if (shipType == 'patrol') {
+      shipLength = 2;
+      shipBoardValue = 'B4';
+    }
+
+    // Randomly generate ship position values
+    let xPos = Math.floor(Math.random() * 10);
+    let yPos = Math.floor(Math.random() * 10);
+
+    // Randomly choose orientation
+    let orientationRand = Math.floor(Math.random() * 2);
+    let orientation;
+    if (orientationRand == 0) {
+      orientation = 'horizontal';
+    } else if (orientationRand == 1) {
+      orientation = 'vertical';
+    }
+
+    // Place ship
+    aiBoard.placeShip(
+      Ship(shipLength, shipBoardValue),
+      yPos,
+      xPos,
+      orientation
+    );
+
+    if (aiBoard.board[yPos][xPos] != shipBoardValue + '0') {
+      /*
+        If ship was NOT placed successfully, reduce loop iterator
+        so another attempt to place same ship is made
+      */
+      loopIterator--;
+    }
+  };
+
+  setAIBoard();
 
   // This function runs when human player clicks button to place a ship
   const placeSelectedShip = function placeHumanSelectedShip() {
