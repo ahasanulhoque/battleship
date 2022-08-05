@@ -41,25 +41,27 @@ const gameloop = (function loopThroughGame() {
   let placeShipButton = document.querySelector('#place-ship');
 
   // Initialize the AI ships (***MANUALLY PLACING FOR NOW***)
-  /*aiBoard.placeShip(Ship(5, 'B0'), 0, 2, 'vertical');
+  aiBoard.placeShip(Ship(5, 'B0'), 0, 2, 'vertical');
   aiBoard.placeShip(Ship(4, 'B1'), 6, 3, 'horizontal');
   aiBoard.placeShip(Ship(3, 'B2'), 9, 0, 'horizontal');
   aiBoard.placeShip(Ship(3, 'B3'), 1, 3, 'vertical');
-  aiBoard.placeShip(Ship(2, 'B4'), 5, 7, 'vertical');*/
+  aiBoard.placeShip(Ship(2, 'B4'), 5, 7, 'vertical');
 
+  /*
+  BELOW IS BEGINNING OF WORK TO RANDOMLY PLACE AI SHIPS. COMMENTED OUT FOR NOW
   // Loop through and place AI ships
   const setAIBoard = function randomlySetAllAIShips() {
     // Loop through ships to place them
     for (let i = 0; i < 5; i++) {
-      if (i == 0) {
+      if (i === 0) {
         placeAIShip('carrier', i);
-      } else if (i == 1) {
+      } else if (i === 1) {
         placeAIShip('battleship', i);
-      } else if (i == 2) {
+      } else if (i === 2) {
         placeAIShip('destroyer', i);
-      } else if (i == 3) {
+      } else if (i === 3) {
         placeAIShip('sumbarine', i);
-      } else if (i == 4) {
+      } else if (i === 4) {
         placeAIShip('patrol', i);
       }
     }
@@ -72,19 +74,19 @@ const gameloop = (function loopThroughGame() {
     let shipBoardValue;
 
     // Determine ship attributes
-    if (shipType == 'carrier') {
+    if (shipType === 'carrier') {
       shipLength = 5;
       shipBoardValue = 'B0';
-    } else if (shipType == 'battleship') {
+    } else if (shipType === 'battleship') {
       shipLength = 4;
       shipBoardValue = 'B1';
-    } else if (shipType == 'destroyer') {
+    } else if (shipType === 'destroyer') {
       shipLength = 3;
       shipBoardValue = 'B2';
-    } else if (shipType == 'submarine') {
+    } else if (shipType === 'submarine') {
       shipLength = 3;
       shipBoardValue = 'B3';
-    } else if (shipType == 'patrol') {
+    } else if (shipType === 'patrol') {
       shipLength = 2;
       shipBoardValue = 'B4';
     }
@@ -111,15 +113,17 @@ const gameloop = (function loopThroughGame() {
     );
 
     if (aiBoard.board[yPos][xPos] != shipBoardValue + '0') {
-      /*
+      
         If ship was NOT placed successfully, reduce loop iterator
         so another attempt to place same ship is made
-      */
-      loopIterator--;
+      
+      //loopIterator--;
+      console.log(`fail: ${shipBoardValue}`);
     }
   };
 
   setAIBoard();
+  */
 
   // This function runs when human player clicks button to place a ship
   const placeSelectedShip = function placeHumanSelectedShip() {
@@ -335,6 +339,9 @@ const gameloop = (function loopThroughGame() {
           placeShip() // board SHOULD change
           if (humanBoard.board = board) // False if board hasn't changed
   */
+
+  //Update "Play again?" modal to be opaque
+  //Update Start button to be disabled during game
 })();
 
 export { gameloop };
